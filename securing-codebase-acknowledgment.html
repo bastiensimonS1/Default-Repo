@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Course Acknowledgment — Securing the SentinelOne Codebase</title>
+<style>
+  :root {
+    --s1-purple: #6440fb;
+    --s1-dark: #1a1533;
+    --s1-ink: #2b2540;
+    --s1-muted: #6e6785;
+    --s1-bg: #f4f2fb;
+    --s1-card: #ffffff;
+    --s1-border: #e3ddf7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(180deg, var(--s1-bg) 0%, #ece7fa 100%);
+    color: var(--s1-ink);
+    display: flex;
+    justify-content: center;
+    padding: 48px 16px;
+  }
+  .certificate {
+    width: 100%;
+    max-width: 760px;
+    background: var(--s1-card);
+    border-radius: 16px;
+    border: 1px solid var(--s1-border);
+    box-shadow: 0 20px 50px rgba(26, 21, 51, 0.08);
+    padding: 48px 56px;
+  }
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--s1-purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .brand-mark svg { width: 18px; height: 18px; }
+  .brand-name {
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    color: var(--s1-dark);
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--s1-purple);
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-size: 26px;
+    line-height: 1.3;
+    margin: 0 0 6px;
+    color: var(--s1-dark);
+  }
+  .subtitle {
+    font-size: 15px;
+    color: var(--s1-muted);
+    margin: 0 0 32px;
+  }
+  .divider {
+    height: 1px;
+    background: var(--s1-border);
+    margin: 28px 0;
+  }
+  .field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 24px;
+    margin-bottom: 8px;
+  }
+  .field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--s1-muted);
+    margin-bottom: 4px;
+  }
+  .field .value {
+    font-size: 15px;
+    color: var(--s1-ink);
+    font-weight: 600;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--s1-dark);
+    margin: 32px 0 14px;
+  }
+  .principle {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--s1-border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: #fbfaff;
+  }
+  .principle .check {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--s1-purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .principle .check svg { width: 12px; height: 12px; }
+  .principle .text-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--s1-ink);
+    margin: 0 0 2px;
+  }
+  .principle .text-body {
+    font-size: 13.5px;
+    color: var(--s1-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .attestation {
+    margin-top: 32px;
+    padding: 20px 22px;
+    border-radius: 12px;
+    background: var(--s1-dark);
+    color: #fff;
+  }
+  .attestation p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #d9d3f5;
+  }
+  .attestation strong { color: #fff; }
+  .sign-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 40px;
+    gap: 24px;
+  }
+  .sign-block { flex: 1; }
+  .sign-line {
+    border-bottom: 1.5px solid var(--s1-ink);
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 22px;
+    color: var(--s1-purple);
+  }
+  .sign-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--s1-muted);
+  }
+  .footer-note {
+    margin-top: 28px;
+    font-size: 11.5px;
+    color: var(--s1-muted);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="certificate">
+    <div class="brand-row">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 6V12C3 17 6.5 20.5 12 22C17.5 20.5 21 17 21 12V6L12 2Z" fill="white"/>
+        </svg>
+      </div>
+      <span class="brand-name">SentinelOne · Internal Training</span>
+    </div>
+
+    <p class="eyebrow">Course Acknowledgment</p>
+    <h1>Securing the SentinelOne Codebase</h1>
+    <p class="subtitle">SCM Architecture &amp; Source Code Partitioning — Completion Record</p>
+
+    <div class="field-grid">
+      <div class="field">
+        <label>Name</label>
+        <div class="value">Bastien</div>
+      </div>
+      <div class="field">
+        <label>Role</label>
+        <div class="value">Staff Solutions Engineer, France</div>
+      </div>
+      <div class="field">
+        <label>Course</label>
+        <div class="value">Securing the SentinelOne Codebase</div>
+      </div>
+      <div class="field">
+        <label>Date Acknowledged</label>
+        <div class="value" id="ack-date"></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="section-title">Key Principles Understood</p>
+
+    <div class="principle">
+      <div class="check">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="text-title">GHE as the exclusive home for internal code</p>
+        <p class="text-body">All internal SentinelOne source code must remain exclusively within GitHub Enterprise (GHE). No internal code is copied, mirrored, or pushed to external or unsanctioned repositories, tools, or personal accounts.</p>
+      </div>
+    </div>
+
+    <div class="principle">
+      <div class="check">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="text-title">Strict partitioning of SCM environments</p>
+        <p class="text-body">Source code management environments are strictly partitioned by design. Access, sharing, and tooling integrations respect these boundaries rather than bridging code across them.</p>
+      </div>
+    </div>
+
+    <div class="principle">
+      <div class="check">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 13l4 4L19 7" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="text-title">Operating confidently within the boundaries</p>
+        <p class="text-body">Day-to-day work — cloning, branching, reviewing, and integrating with internal tools — is performed only within the approved, partitioned SCM environment, without introducing shortcuts that cross architectural boundaries.</p>
+      </div>
+    </div>
+
+    <div class="attestation">
+      <p>
+        <strong>Attestation:</strong> I confirm that I have completed the "Securing the SentinelOne Codebase" course
+        and understand SentinelOne's SCM Architecture. I acknowledge that internal code must remain exclusively on
+        GHE, and I understand how to operate confidently and compliantly within our strictly partitioned source
+        code management environments.
+      </p>
+    </div>
+
+    <div class="sign-row">
+      <div class="sign-block">
+        <div class="sign-line">Bastien</div>
+        <div class="sign-label">Employee Signature</div>
+      </div>
+      <div class="sign-block" style="text-align:right;">
+        <div class="sign-line" id="sign-date" style="text-align:right;"></div>
+        <div class="sign-label">Date</div>
+      </div>
+    </div>
+
+    <p class="footer-note">This is a sample self-generated acknowledgment record. For official completion tracking, refer to your internal learning management system record.</p>
+  </div>
+
+  <script>
+    const today = new Date();
+    const formatted = today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('ack-date').textContent = formatted;
+    document.getElementById('sign-date').textContent = formatted;
+  </script>
+</body>
+</html>
